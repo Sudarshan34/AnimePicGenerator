@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Picture Generator</title>
+    <style>
+       .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+       }
+        img {
+            max-width: 100%;
+            margin-top: 100px;
+            height: 500px;
+            margin-left: 400px;
+            border: 10px solid black;
+            border-radius: 10px;
+            
+        }
+
+        body{
+            background-image: url("bg1.jpg");
+        }
+
+        #btn{
+            height: 50px;
+            border-radius: 10px;
+            color: white;
+            background-color: black;
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+
+        #btn:hover{
+          background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Anime Picture Generator</h1>
+    <button id="btn">Generate Anime Picture</button>
+</div>
+    <div id="img">
+    
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const img = document.getElementById('img');
+
+        btn.addEventListener('click', () =>
+         {
+            const apiUrl = 'https://api.unsplash.com/photos/random?client_id=q3pgRr7gn792jvb-z7AQseuaoYdQyTPenX63H3tlGkg&query=anime';
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imageUrl = data.urls.regular;
+                    const image = document.createElement('img');
+                    image.src = imageUrl;
+                    img.innerHTML = '';
+                    img.appendChild(image);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+</body>
+</html>
